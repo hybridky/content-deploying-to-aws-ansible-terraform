@@ -1,11 +1,41 @@
 
-<h1>Setup Requirements</h1><br />
+<h1>Setup Requirements for Terraform</h1><br/>
 
 ```
-1. Terraform binary => 0.12.x # wget -c https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip
-2. Python3 & PIP needs to be installed on all nodes(on most , modern Linux systems it's available by default) # yum -y install python3-pip
-3. Ansible (install via pip) # pip3 install ansible --user
-4. AWS CLI (install via pip) # pip3 install awscli --user 
+1. Terraform binary => This project has error in Terraform 0.13. "Destroy-time provisioners and their connection configurations may only reference attributes of the related resource, via 'self', 'count.index', or 'each.key'." at the line 61 of the file instances.tf 
+   1) Get the binary file of Terraform 0.12.x. 
+     # wget -c https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12.28_linux_amd64.zip
+   2) Unzip the file
+     # unzip terraform_0.12.28_linux_amd64.zip
+   3) Check the path and copy it to /usr/local/bin/
+     # echo $PATH
+     # sudo mv terraform /usr/local/bin/
+
+2. Python3 & PIP needs to be installed on all nodes(on most , modern Linux systems it's available by default) 
+   1) Check which version of python is installed in the machine.
+    # whereis python| tr " " "\n"
+   2) Check the available version of Pythone
+    # yum list | grep python3
+   3) If needed, installed the latest
+    # yum -y install python3-pip  # or 
+   4) If python 3 is not default then set it as default using alias
+    # python --version
+    # alias python=python3 
+   5) Install boto3  -- It is needed for Ansible.
+    #pip3 install boto3 --user
+
+
+3. Ansible (install via pip) 
+   # pip3 install ansible --user
+    1) If pip3 is not installed, Install pip3 if it is not installed. 
+    2) Download get-pip to current directory. It won't install anything, as of now
+    # curl -O https://bootstrap.pypa.io/get-pip.py
+    3) Use python3.6 to install pip
+    # python3 get-pip.py
+    
+4. AWS CLI (install via pip) 
+   # pip3 install awscli --user 
+   
 5. jq (install via package manager) - OPTIONAL # yum -y install jq
 ```
 
